@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8">>
+    <title>Angkasa Labs</title>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    
+    <h1>Angkasa Labs Task Manager</h1>
+
+    <div class="section-box">
+        <h3>Form Tambah Proyek</h3>
+        <div class="input-row">
+            <label>Tambah Proyek:</label>
+            <input type="text" id="nama_proyek_baru" placeholder="Nama Proyek Baru...">
+            <button type="button" class="btn-add" onclick="tambahOpsi('nama_proyek_baru', 'id_proyek', 'Proyek')">Tambah Proyek</button>
+        </div>
+        <div class="input-row">
+            <label>Tambah Penanggung Jawab:</label>
+            <input type="text" id="nama_pic_baru" placeholder="Nama Anggota Tim...">
+            <button type="button" class="btn-add" onclick="tambahOpsi('nama_pic_baru', 'id_penanggungjawab', 'PIC')">Tambah PIC</button>
+        </div>
+    </div>
 </body>
 </html>
