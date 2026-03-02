@@ -1,77 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">>
-    <title>Angkasa Labs</title>
-    <link rel="stylesheet" href="style.css"> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Tugas — Angkasa Labs</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Angkasa Labs Task Manager</h1>
+<div class="shell">
 
-    <div class="section-box">
-        <h3>Form Tambah Proyek</h3>
-        <div class="input-row">
-            <label>Tambah Proyek:</label>
-            <input type="text" id="nama_proyek_baru" placeholder="Nama Proyek Baru...">
-            <button type="button" class="btn-add" onclick="tambahOpsi('nama_proyek_baru', 'id_proyek', 'Proyek')">Tambah Proyek</button>
-        </div>
-        <div class="input-row">
-            <label>Tambah Penanggung Jawab:</label>
-            <input type="text" id="nama_pic_baru" placeholder="Nama Anggota Tim...">
-            <button type="button" class="btn-add" onclick="tambahOpsi('nama_pic_baru', 'id_penanggungjawab', 'PIC')">Tambah PIC</button>
-        </div>
+  <aside class="sidebar">
+    <a href="./index.html" class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fill-opacity=".15" stroke="white" stroke-width="1.25"/><path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.25" stroke-linecap="round"/></svg>
+      </div>
+      <div><span class="logo-name">Angkasa Labs</span><span class="logo-tag">Task Manager</span></div>
+    </a>
+    <nav class="sidebar-nav">
+      <span class="nav-label">Menu</span>
+      <a href="./index.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Beranda
+      </a>
+      <a href="./tambah_tugas.html" class="nav-item active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Tambah Tugas
+      </a>
+      <a href="./daftar_tugas.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Daftar Tugas
+      </a>
+      <a href="./proses.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Board Proses
+      </a>
+    </nav>
+    <div class="sidebar-footer">Prototype &middot; localStorage<br>HTML + CSS + JS</div>
+  </aside>
 
-        <div class="section-box">
-        <h3>Form Input Proyek</h3>
-        <form action="#">
-            <div class="input-row">
-                <label>Pilih Proyek:</label>
-                <select name="id_proyek" id="id_proyek" required>
-                    <option value="">-- Daftar Proyek --</option>
-                </select>
-            </div>
-
-            <div class="input-row">
-                <label>Judul Tugas:</label>
-                <input type="text" name="judul_tugas" required>
-            </div>
-
-            <div class="input-row">
-                <label>Deskripsi Tugas:</label>
-                <textarea name="deskripsi" rows="4" placeholder="Jelaskan detail instruksi pengerjaan..."></textarea>
-            </div>
-
-            <div class="input-row">
-                <label>Pilih Penanggung Jawab:</label>
-                <select name="id_penanggungjawab" id="id_penanggungjawab" required>
-                    <option value="">-- Daftar Penanggung Jawab --</option>
-                </select>
-            </div>
-
-            <div class="input-row">
-                <label>Deadline:</label>
-                <input type="datetime-local" name="deadline" required>
-            </div>
-
-            <button type="submit" class="btn-submit">SIMPAN TUGAS</button>
-        </form>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-crumb">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <b>Tambah Tugas</b>
+      </div>
+      <a href="./daftar_tugas.html" class="btn btn-ghost" style="font-size:.75rem;padding:5px 12px;">
+        Lihat Daftar
+      </a>
     </div>
 
-    <script>
-        function tambahOpsi(inputId, selectId, label) {
-            const input = document.getElementById(inputId);
-            const select = document.getElementById(selectId);
-            if (input.value.trim() !== "") {
-                const option = document.createElement("option");
-                option.text = input.value;
-                option.value = input.value;
-                select.add(option);
-                alert(label + " '" + input.value + "' berhasil ditambah ke daftar!");
-                input.value = ""; 
-            } else {
-                alert("Harap isi dulu kolomnya!");
-            }
-        }
-    </script>
+    <div class="content">
+      <div class="ph">
+        <div class="ph-sub">Modul Input</div>
+        <h1 class="ph-title">Tambah <em>tugas baru</em></h1>
+        <p class="ph-desc">Isi formulir untuk mendaftarkan pekerjaan baru dari klien UMKM.</p>
+      </div>
+
+      <div id="errorAlert" class="falert">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="errorMessage"></span>
+      </div>
+
+      <div class="panel">
+        <div class="panel-body">
+          <div class="form-2">
+            <div class="fg">
+              <label class="flabel" for="clientNameInput">Nama Klien (UMKM) <sup>*</sup></label>
+              <input class="fctl" type="text" id="clientNameInput" placeholder="cth. Kopi Senja...">
+            </div>
+            <div class="fg">
+              <label class="flabel" for="picInput">PIC / Freelancer <sup>*</sup></label>
+              <input class="fctl" type="text" id="picInput" placeholder="cth. Zelda, Julianti...">
+            </div>
+            <div class="fg span2">
+              <label class="flabel" for="descInput">Deskripsi Tugas <sup>*</sup></label>
+              <textarea class="fctl" id="descInput" placeholder="Jelaskan pekerjaan yang perlu dikerjakan..."></textarea>
+              <p class="fhint">Deskripsikan output yang diharapkan dari klien secara singkat dan jelas.</p>
+            </div>
+            <div class="fg">
+              <label class="flabel" for="prioritySelect">Prioritas</label>
+              <select class="fctl" id="prioritySelect">
+                <option value="Rendah">Rendah</option>
+                <option value="Sedang" selected>Sedang</option>
+                <option value="Tinggi">Tinggi</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel" for="statusSelect">Status Awal</label>
+              <select class="fctl" id="statusSelect">
+                <option value="Pending" selected>Pending</option>
+                <option value="Dalam Proses">Dalam Proses</option>
+                <option value="Selesai">Selesai</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="fdivider">
+
+          <div style="display:flex;gap:.625rem;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="handleSaveTask()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Simpan Tugas
+            </button>
+            <button class="btn btn-ghost" onclick="resetForm()">Reset</button>
+          </div>
+
+          <p style="margin-top:.875rem;font-size:.71rem;color:var(--t3);"><sup>*</sup> Wajib diisi &mdash; data tidak dikirim ke server.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Key localStorage yang sama dengan halaman lain
+  const STORAGE_KEY = 'al_tasks';
+
+  function getAllTasks() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveAllTasks(tasks) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }
+
+  function addTask(newTask) {
+    const tasks = getAllTasks();
+    tasks.push(newTask);
+    saveAllTasks(tasks);
+  }
+
+  function handleSaveTask() {
+    const clientName = document.getElementById('clientNameInput').value.trim();
+    const picName = document.getElementById('picInput').value.trim();
+    const description = document.getElementById('descInput').value.trim();
+    const priority = document.getElementById('prioritySelect').value;
+    const status = document.getElementById('statusSelect').value;
+
+    const errorAlert = document.getElementById('errorAlert');
+    const errorMsgSpan = document.getElementById('errorMessage');
+
+    // Validasi field wajib
+    if (!clientName || !picName || !description) {
+      errorMsgSpan.textContent = 'Harap isi Nama Klien, PIC, dan Deskripsi Tugas.';
+      errorAlert.classList.add('on');
+      return;
+    }
+    errorAlert.classList.remove('on');
+
+    // Buat objek tugas baru
+    const newTask = {
+      id: 'task_' + Date.now(),
+      klien: clientName,
+      pic: picName,
+      desc: description,
+      prio: priority,
+      status: status,
+      date: new Date().toISOString().slice(0, 10) // format YYYY-MM-DD
+    };
+
+    addTask(newTask);
+    showToast('Tugas berhasil disimpan');
+    resetForm();
+
+    // Redirect ke halaman daftar setelah simpan
+    setTimeout(() => {
+      window.location.href = './daftar_tugas.html';
+    }, 900);
+  }
+
+  function resetForm() {
+    document.getElementById('clientNameInput').value = '';
+    document.getElementById('picInput').value = '';
+    document.getElementById('descInput').value = '';
+    document.getElementById('prioritySelect').value = 'Sedang';
+    document.getElementById('statusSelect').value = 'Pending';
+    document.getElementById('errorAlert').classList.remove('on');
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('on');
+    setTimeout(() => toast.classList.remove('on'), 2400);
+  }
+</script>
 </body>
 </html>

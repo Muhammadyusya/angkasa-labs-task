@@ -1,14 +1,178 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Halaman Proses</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board Proses — Angkasa Labs</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Data Berhasil Diproses</h2>
-     <button>Kembali</button>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a href="./index.html" class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fill-opacity=".15" stroke="white" stroke-width="1.25"/><path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.25" stroke-linecap="round"/></svg>
+      </div>
+      <div><span class="logo-name">Angkasa Labs</span><span class="logo-tag">Task Manager</span></div>
+    </a>
+    <nav class="sidebar-nav">
+      <span class="nav-label">Menu</span>
+      <a href="./index.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Beranda
+      </a>
+      <a href="./tambah_tugas.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Tambah Tugas
+      </a>
+      <a href="./daftar_tugas.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Daftar Tugas
+      </a>
+      <a href="./proses.html" class="nav-item active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Board Proses
+      </a>
+    </nav>
+    <div class="sidebar-footer">Prototype &middot; localStorage<br>HTML + CSS + JS</div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-crumb">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <b>Board Proses</b>
+      </div>
+      <a href="./tambah_tugas.html" class="btn btn-ghost" style="font-size:.75rem;padding:5px 12px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Tugas Baru
+      </a>
+    </div>
+
+    <div class="content">
+      <div class="ph">
+        <div class="ph-sub">Monitor Progres</div>
+        <h1 class="ph-title">Board <em>tugas aktif</em></h1>
+        <p class="ph-desc">Geser tugas antar kolom dengan tombol panah di tiap kartu.</p>
+      </div>
+      <div class="board" id="board"></div>
+    </div>
   </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Key localStorage yang sama dengan halaman lain
+  const STORAGE_KEY = 'al_tasks';
+
+  function getAllTasks() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveTasks(tasks) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }
+
+  // Urutan status dan mapping navigasi antar kolom
+  const statusColumns = [
+    { status: 'Pending', label: 'Pending', icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+    { status: 'Dalam Proses', label: 'Dalam Proses', icon: '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>' },
+    { status: 'Selesai', label: 'Selesai', icon: '<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
+  ];
+
+  const nextStatus = {
+    'Pending': 'Dalam Proses',
+    'Dalam Proses': 'Selesai',
+    'Selesai': null
+  };
+
+  const prevStatus = {
+    'Pending': null,
+    'Dalam Proses': 'Pending',
+    'Selesai': 'Dalam Proses'
+  };
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('on');
+    setTimeout(() => toast.classList.remove('on'), 2400);
+  }
+
+  function renderBoard() {
+    const tasks = getAllTasks();
+    const boardEl = document.getElementById('board');
+
+    boardEl.innerHTML = statusColumns.map(col => {
+      const tasksInColumn = tasks.filter(t => t.status === col.status);
+      const next = nextStatus[col.status];
+      const prev = prevStatus[col.status];
+
+      const cardsHtml = tasksInColumn.length === 0
+        ? `<div class="bcol-empty">Tidak ada tugas di kolom ini</div>`
+        : tasksInColumn.map(task => {
+            const priorityDotClass = task.prio === 'Tinggi' ? 'h'
+              : task.prio === 'Sedang' ? 'm'
+              : 'l';
+
+            return `<div class="bcard">
+              <div class="bcard-client">${escapeHtml(task.klien)}</div>
+              <div class="bcard-desc">${escapeHtml(task.desc)}</div>
+              <div class="bcard-foot">
+                <div class="bcard-pic">
+                  <span class="pdot ${priorityDotClass}"></span>${escapeHtml(task.pic)}
+                </div>
+                <div style="display:flex;gap:4px;">
+                  ${prev ? `<button class="bmove" data-task-id="${escapeHtml(task.id)}" data-move-to="${escapeHtml(prev)}">&#8592;</button>` : ''}
+                  ${next ? `<button class="bmove" data-task-id="${escapeHtml(task.id)}" data-move-to="${escapeHtml(next)}">&#8594;</button>` : ''}
+                </div>
+              </div>
+            </div>`;
+          }).join('');
+
+      return `<div class="bcol">
+        <div class="bcol-head">
+          <div class="bcol-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${col.icon}</svg>
+            ${col.label}
+          </div>
+          <span class="bcol-count">${tasksInColumn.length}</span>
+        </div>
+        <div class="bcol-body">${cardsHtml}</div>
+      </div>`;
+    }).join('');
+
+    // Pasang event listener untuk tombol panah
+    document.querySelectorAll('.bmove').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const taskId = this.dataset.taskId;
+        const newStatus = this.dataset.moveTo;
+        const tasks = getAllTasks();
+        const taskIndex = tasks.findIndex(t => t.id === taskId);
+        if (taskIndex === -1) return;
+        tasks[taskIndex].status = newStatus;
+        saveTasks(tasks);
+        renderBoard();
+        showToast(`Dipindah ke "${newStatus}"`);
+      });
+    });
+  }
+
+  renderBoard();
+</script>
 </body>
 </html>

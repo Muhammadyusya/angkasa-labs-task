@@ -1,17 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Angkasa Labs - Menu Utama</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angkasa Labs — Beranda</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Angkasa Labs Task Manager</h1>
-        <p>Pilih menu navigasi di bawah ini:</p>
-        <ul>
-            <li><a href="tambah_tugas.html">Tambah Tugas Baru</a></li>
-            <li><a href="daftar_tugas.html">Lihat Daftar Tugas</a></li>
-        </ul>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a href="./index.html" class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fill-opacity=".15" stroke="white" stroke-width="1.25"/>
+          <path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <span class="logo-name">Angkasa Labs</span>
+        <span class="logo-tag">Task Manager</span>
+      </div>
+    </a>
+    <nav class="sidebar-nav">
+      <span class="nav-label">Menu</span>
+      <a href="./index.html" class="nav-item active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Beranda
+      </a>
+      <a href="./tambah_tugas.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Tambah Tugas
+      </a>
+      <a href="./daftar_tugas.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Daftar Tugas
+      </a>
+      <a href="./proses.html" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Board Proses
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      Prototype &middot; localStorage<br>HTML + CSS + JS
     </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-crumb">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        <b>Beranda</b>
+      </div>
+      <a href="./tambah_tugas.html" class="btn btn-ghost" style="font-size:.75rem;padding:5px 12px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Tugas Baru
+      </a>
+    </div>
+
+    <div class="content">
+      <div class="ph">
+        <div class="ph-sub">Dashboard</div>
+        <h1 class="ph-title">Selamat datang<em>.</em></h1>
+        <p class="ph-desc">Kelola tugas klien UMKM dari satu tempat. Data tersimpan otomatis di browser.</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box accent"><div class="stat-box-val" id="s-total">0</div><div class="stat-box-lbl">Total Tugas</div></div>
+        <div class="stat-box green" ><div class="stat-box-val" id="s-done">0</div> <div class="stat-box-lbl">Selesai</div></div>
+        <div class="stat-box sky"   ><div class="stat-box-val" id="s-wip">0</div>  <div class="stat-box-lbl">Dalam Proses</div></div>
+        <div class="stat-box amber" ><div class="stat-box-val" id="s-wait">0</div> <div class="stat-box-lbl">Pending</div></div>
+      </div>
+
+      <div class="menu-row">
+        <a href="./tambah_tugas.html" class="mcard">
+          <div class="mcard-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="mcard-label">Tambah Tugas</div>
+          <div class="mcard-desc">Daftarkan pekerjaan baru dari klien UMKM beserta PIC dan prioritas.</div>
+          <div class="mcard-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+        <a href="./daftar_tugas.html" class="mcard">
+          <div class="mcard-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <div class="mcard-label">Daftar Tugas</div>
+          <div class="mcard-desc">Cari, filter, dan kelola semua tugas klien dalam tampilan tabel.</div>
+          <div class="mcard-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+        <a href="./proses.html" class="mcard">
+          <div class="mcard-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="mcard-label">Board Proses</div>
+          <div class="mcard-desc">Pantau progres tugas dalam tampilan kanban tiga kolom.</div>
+          <div class="mcard-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+      </div>
+
+      <div class="panel">
+        <div class="panel-body" style="display:flex;gap:10px;align-items:flex-start;font-size:.81rem;color:var(--t2);line-height:1.75;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;color:var(--t3)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Prototipe statis &mdash; data disimpan di <strong style="color:var(--t1)">localStorage</strong> browser, bukan di server atau database.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Key localStorage yang sama dipakai di semua halaman (tambah_tugas, daftar_tugas, dll)
+  const STORAGE_KEY = 'al_tasks';
+
+  // Ambil semua tasks, pastikan tidak error kalau localStorage corrupted
+  function getTasks() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  // Kalau belum ada data, isi dengan 3 contoh tugas biar pengguna lihat langsung
+  if (getTasks().length === 0) {
+    const demoData = [
+      { id: 's1', klien: 'UMKM Kopi Senja', desc: 'Desain Feed Instagram 3 Post', pic: 'Zelda', prio: 'Sedang', status: 'Selesai', date: '2026-02-10' },
+      { id: 's2', klien: 'Toko Sepatu Almira', desc: 'Video TikTok POV 60 Detik', pic: 'Julianti', prio: 'Tinggi', status: 'Pending', date: '2026-02-18' },
+      { id: 's3', klien: 'Bakery Oma Rini', desc: 'Copywriting Caption IG (10 post)', pic: 'Ikbal', prio: 'Sedang', status: 'Dalam Proses', date: '2026-02-25' }
+    ];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoData));
+  }
+
+  // Tampilkan ringkasan jumlah tugas per status di card dashboard
+  function refreshStatCards() {
+    const tasks = getTasks();
+    document.getElementById('s-total').textContent = tasks.length;
+    document.getElementById('s-done').textContent = tasks.filter(t => t.status === 'Selesai').length;
+    document.getElementById('s-wip').textContent = tasks.filter(t => t.status === 'Dalam Proses').length;
+    document.getElementById('s-wait').textContent = tasks.filter(t => t.status === 'Pending').length;
+  }
+
+  refreshStatCards();
+</script>
 </body>
 </html>
