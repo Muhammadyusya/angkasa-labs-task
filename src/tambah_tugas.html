@@ -52,6 +52,26 @@
                 <label>Deadline:</label>
                 <input type="datetime-local" name="deadline" required>
             </div>
+
+            <button type="submit" class="btn-submit">SIMPAN TUGAS</button>
+        </form>
     </div>
+
+    <script>
+        function tambahOpsi(inputId, selectId, label) {
+            const input = document.getElementById(inputId);
+            const select = document.getElementById(selectId);
+            if (input.value.trim() !== "") {
+                const option = document.createElement("option");
+                option.text = input.value;
+                option.value = input.value;
+                select.add(option);
+                alert(label + " '" + input.value + "' berhasil ditambah ke daftar!");
+                input.value = ""; 
+            } else {
+                alert("Harap isi dulu kolomnya!");
+            }
+        }
+    </script>
 </body>
 </html>
