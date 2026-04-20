@@ -1,1 +1,1 @@
-"1. Test Form Input: Mengisi nama UMKM dan klik simpan -> Berhasil diarahkan ke index. 2. Test Tabel: Memastikan baris data tampil dengan benar."
+"1. Test Form Input: Mengisi nama Tugas Baru dan PIC, lalu klik simpan -> Berhasil diarahkan ke proses.html. 2. Test Tabel: Memastikan baris data tugas tampil dengan benar di daftar_tugas.html."
