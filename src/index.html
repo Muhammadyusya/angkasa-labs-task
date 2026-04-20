@@ -1,153 +1,650 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Angkasa Labs — Beranda</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<div class="shell">
-
-  <aside class="sidebar">
-    <a href="./index.html" class="sidebar-logo">
-      <div class="logo-icon">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fill-opacity=".15" stroke="white" stroke-width="1.25"/>
-          <path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div>
-        <span class="logo-name">Angkasa Labs</span>
-        <span class="logo-tag">Task Manager</span>
-      </div>
-    </a>
-    <nav class="sidebar-nav">
-      <span class="nav-label">Menu</span>
-      <a href="./index.html" class="nav-item active">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Beranda
-      </a>
-      <a href="./tambah_tugas.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        Tambah Tugas
-      </a>
-      <a href="./daftar_tugas.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        Daftar Tugas
-      </a>
-      <a href="./proses.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Board Proses
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      Prototype &middot; localStorage<br>HTML + CSS + JS
-    </div>
-  </aside>
-
-  <div class="main">
-    <div class="topbar">
-      <div class="topbar-crumb">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-        <b>Beranda</b>
-      </div>
-      <a href="./tambah_tugas.html" class="btn btn-ghost" style="font-size:.75rem;padding:5px 12px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Tugas Baru
-      </a>
-    </div>
-
-    <div class="content">
-      <div class="ph">
-        <div class="ph-sub">Dashboard</div>
-        <h1 class="ph-title">Selamat datang<em>.</em></h1>
-        <p class="ph-desc">Kelola tugas klien UMKM dari satu tempat. Data tersimpan otomatis di browser.</p>
-      </div>
-
-      <div class="stat-grid">
-        <div class="stat-box accent"><div class="stat-box-val" id="s-total">0</div><div class="stat-box-lbl">Total Tugas</div></div>
-        <div class="stat-box green" ><div class="stat-box-val" id="s-done">0</div> <div class="stat-box-lbl">Selesai</div></div>
-        <div class="stat-box sky"   ><div class="stat-box-val" id="s-wip">0</div>  <div class="stat-box-lbl">Dalam Proses</div></div>
-        <div class="stat-box amber" ><div class="stat-box-val" id="s-wait">0</div> <div class="stat-box-lbl">Pending</div></div>
-      </div>
-
-      <div class="menu-row">
-        <a href="./tambah_tugas.html" class="mcard">
-          <div class="mcard-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Angkasa Labs - Executive Horizon</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-on-surface": "#f0f0f3",
+              "surface-container": "#eeeef0",
+              "tertiary-container": "#a53300",
+              background: "#f9f9fc",
+              "on-secondary-fixed": "#002020",
+              "secondary-fixed": "#93f2f2",
+              "primary-fixed": "#dde1ff",
+              "tertiary-fixed": "#ffdbd0",
+              secondary: "#006a6a",
+              "surface-bright": "#f9f9fc",
+              "surface-container-high": "#e8e8ea",
+              "secondary-fixed-dim": "#76d6d5",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-secondary-container": "#006e6e",
+              "on-background": "#1a1c1e",
+              "on-secondary-fixed-variant": "#004f4f",
+              primary: "#0034b1",
+              "on-primary-container": "#c8d1ff",
+              "primary-container": "#1b4bdb",
+              "on-tertiary-fixed": "#390c00",
+              "surface-variant": "#e2e2e5",
+              "on-tertiary-fixed-variant": "#832700",
+              "secondary-container": "#90efef",
+              "surface-dim": "#dadadc",
+              "surface-container-low": "#f3f3f6",
+              "surface-container-highest": "#e2e2e5",
+              "surface-tint": "#214fdf",
+              tertiary: "#7d2500",
+              error: "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffc6b4",
+              "primary-fixed-dim": "#b8c4ff",
+              "error-container": "#ffdad6",
+              "inverse-surface": "#2f3133",
+              "on-primary-fixed": "#001453",
+              "on-primary": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#c4c5d7",
+              outline: "#747686",
+              surface: "#f9f9fc",
+              "on-primary-fixed-variant": "#0037b9",
+              "on-surface": "#1a1c1e",
+              "inverse-primary": "#b8c4ff",
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.25rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Inter", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .tonal-shift {
+        transition: background-color 0.3s ease;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        vertical-align: middle;
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #0034b1 0%, #1b4bdb 100%);
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface font-body antialiased">
+    <aside
+      class="fixed left-0 top-0 h-screen w-64 bg-surface-container dark:bg-slate-900 font-['Inter'] antialiased text-sm tracking-tight z-50 flex flex-col"
+    >
+      <div class="p-8 pb-10">
+        <div class="flex items-center gap-3 mb-1">
+          <div
+            class="w-8 h-8 rounded bg-gradient-primary flex items-center justify-center text-white"
+          >
+            <span
+              class="material-symbols-outlined text-sm"
+              data-icon="rocket_launch"
+              >rocket_launch</span
+            >
           </div>
-          <div class="mcard-label">Tambah Tugas</div>
-          <div class="mcard-desc">Daftarkan pekerjaan baru dari klien UMKM beserta PIC dan prioritas.</div>
-          <div class="mcard-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-        <a href="./daftar_tugas.html" class="mcard">
-          <div class="mcard-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          </div>
-          <div class="mcard-label">Daftar Tugas</div>
-          <div class="mcard-desc">Cari, filter, dan kelola semua tugas klien dalam tampilan tabel.</div>
-          <div class="mcard-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-        <a href="./proses.html" class="mcard">
-          <div class="mcard-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          </div>
-          <div class="mcard-label">Board Proses</div>
-          <div class="mcard-desc">Pantau progres tugas dalam tampilan kanban tiga kolom.</div>
-          <div class="mcard-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-      </div>
-
-      <div class="panel">
-        <div class="panel-body" style="display:flex;gap:10px;align-items:flex-start;font-size:.81rem;color:var(--t2);line-height:1.75;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;color:var(--t3)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span>Prototipe statis &mdash; data disimpan di <strong style="color:var(--t1)">localStorage</strong> browser, bukan di server atau database.</span>
+          <h1
+            class="text-xl font-bold tracking-tighter text-[#1a1c1e] dark:text-slate-100"
+          >
+            Angkasa Labs
+          </h1>
         </div>
+        <p
+          class="text-xs font-semibold tracking-widest text-on-surface-variant/60 uppercase ml-11"
+        >
+          Executive Horizon
+        </p>
       </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  // Key localStorage yang sama dipakai di semua halaman (tambah_tugas, daftar_tugas, dll)
-  const STORAGE_KEY = 'al_tasks';
-
-  // Ambil semua tasks, pastikan tidak error kalau localStorage corrupted
-  function getTasks() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
-      return [];
-    }
-  }
-
-  // Kalau belum ada data, isi dengan 3 contoh tugas biar pengguna lihat langsung
-  if (getTasks().length === 0) {
-    const demoData = [
-      { id: 's1', klien: 'UMKM Kopi Senja', desc: 'Desain Feed Instagram 3 Post', pic: 'Zelda', prio: 'Sedang', status: 'Selesai', date: '2026-02-10' },
-      { id: 's2', klien: 'Toko Sepatu Almira', desc: 'Video TikTok POV 60 Detik', pic: 'Julianti', prio: 'Tinggi', status: 'Pending', date: '2026-02-18' },
-      { id: 's3', klien: 'Bakery Oma Rini', desc: 'Copywriting Caption IG (10 post)', pic: 'Ikbal', prio: 'Sedang', status: 'Dalam Proses', date: '2026-02-25' }
-    ];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(demoData));
-  }
-
-  // Tampilkan ringkasan jumlah tugas per status di card dashboard
-  function refreshStatCards() {
-    const tasks = getTasks();
-    document.getElementById('s-total').textContent = tasks.length;
-    document.getElementById('s-done').textContent = tasks.filter(t => t.status === 'Selesai').length;
-    document.getElementById('s-wip').textContent = tasks.filter(t => t.status === 'Dalam Proses').length;
-    document.getElementById('s-wait').textContent = tasks.filter(t => t.status === 'Pending').length;
-  }
-
-  refreshStatCards();
-</script>
-</body>
+      <nav class="flex-1 px-4 space-y-1">
+        <a
+          class="flex items-center gap-3 px-4 py-3 bg-[#e0e0e2] dark:bg-slate-800 text-[#0034b1] dark:text-blue-400 border-l-4 border-[#0034b1] font-semibold duration-200 ease-in-out"
+          href="index.html"
+        >
+          <span
+            class="material-symbols-outlined"
+            data-icon="home"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >home</span
+          >
+          <span>Beranda</span>
+        </a>
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors duration-200 ease-in-out"
+          href="daftar_tugas.html"
+        >
+          <span class="material-symbols-outlined" data-icon="list_alt"
+            >list_alt</span
+          >
+          <span>Daftar Tugas</span>
+        </a>
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors duration-200 ease-in-out"
+          href="proses.html"
+        >
+          <span
+            class="material-symbols-outlined"
+            data-icon="dashboard_customize"
+            >dashboard_customize</span
+          >
+          <span>Board Proses</span>
+        </a>
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors duration-200 ease-in-out"
+          href="tambah_tugas.html"
+        >
+          <span class="material-symbols-outlined" data-icon="add_circle"
+            >add_circle</span
+          >
+          <span>Tambah Tugas</span>
+        </a>
+      </nav>
+      <div class="px-6 mb-8">
+        <a
+          href="tambah_tugas.html"
+          class="w-full bg-gradient-primary text-on-primary py-3 rounded font-semibold text-xs tracking-wide shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+        >
+          <span class="material-symbols-outlined text-sm" data-icon="add"
+            >add</span
+          >
+          New Project
+        </a>
+      </div>
+      <div class="p-4 border-t border-outline-variant/10 space-y-1 mb-4">
+        <a href="settings.html" class="...">
+          <span class="material-symbols-outlined ...">settings</span>
+          <span>Settings</span>
+        </a>
+        <a href="login.html" class="...">
+          <span class="material-symbols-outlined ...">logout</span>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    <main class="ml-64 min-h-screen flex flex-col">
+      <header
+        class="w-full h-16 sticky top-0 z-40 bg-[#f9f9fc]/80 dark:bg-slate-950/80 backdrop-blur-md flex justify-between items-center px-8"
+      >
+        <div class="flex items-center">
+          <h2
+            class="font-['Inter'] text-lg font-bold tracking-tight text-on-surface"
+          >
+            Beranda
+          </h2>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="relative hidden md:block">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg"
+              data-icon="search"
+              >search</span
+            >
+            <input
+              class="bg-surface-container-low border-none rounded py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-surface-tint/20 transition-all outline-none"
+              placeholder="Cari tugas..."
+              type="text"
+            />
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors relative"
+            >
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="notifications"
+                >notifications</span
+              >
+              <span
+                class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full"
+              ></span>
+            </button>
+            <button
+              class="flex items-center gap-2 pl-2 pr-1 py-1 rounded-full border border-outline-variant/20 hover:bg-surface-container transition-colors"
+            >
+              <span class="text-xs font-semibold text-on-surface-variant px-2"
+                >Manager</span
+              >
+              <div class="w-8 h-8 rounded-full overflow-hidden">
+                <img
+                  class="w-full h-full object-cover"
+                  data-alt="Portrait of a professional project manager in a clean studio setting with soft lighting"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg_VInuGI3SaJOeF5EVrMmOgWYXLufGYUlZoxOOS3ss5zNY1895-I0dvQsY6-MrF7FbFc0kSPFIAw5KDAcm5RBsOf5IFJQPEQqDUibh7OtBBEZBWdEYVehK1zsrZe9PMSEKVujlVHCtU8-SoQDmZazItwpzlh-iH3EUckIU1nhZmUvJ8VlgUeAc7ALgn_RfjQbzaLCGJDzXkPWiotJnhDB3OYhhNuX9bIyQYYj77J3jn1JgI_6dn0gbG2TOQ-FGNbzEwLsSc5_WRdO"
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+      <section class="p-10 flex-1 space-y-10">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
+          <div>
+            <h3
+              class="text-4xl font-extrabold tracking-tight text-on-surface mb-2"
+            >
+              Selamat Datang, Admin.
+            </h3>
+            <p class="text-on-surface-variant text-lg max-w-2xl font-light">
+              Tinjau perkembangan proyek strategis Anda hari ini melalui metrik
+              performa real-time.
+            </p>
+          </div>
+          <div class="flex gap-3">
+            <button
+              class="px-5 py-2.5 bg-secondary-fixed text-on-secondary-fixed rounded font-semibold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <span
+                class="material-symbols-outlined text-sm"
+                data-icon="file_download"
+                >file_download</span
+              >
+              Export Report
+            </button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="bg-surface-container-lowest p-8 rounded-lg tonal-shift relative overflow-hidden group"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+            <div class="flex justify-between items-start mb-6">
+              <span
+                class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant/60 uppercase"
+                >Total Tugas</span
+              >
+              <div
+                class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center text-primary"
+              >
+                <span
+                  class="material-symbols-outlined text-xl"
+                  data-icon="assignment"
+                  >assignment</span
+                >
+              </div>
+            </div>
+            <div class="space-y-1">
+              <div
+                class="text-5xl font-extrabold tracking-tighter text-on-surface"
+              >
+                124
+              </div>
+              <div
+                class="flex items-center gap-1 text-xs font-semibold text-secondary"
+              >
+                <span
+                  class="material-symbols-outlined text-xs"
+                  data-icon="trending_up"
+                  >trending_up</span
+                >
+                <span>+12% vs bulan lalu</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-lowest p-8 rounded-lg tonal-shift relative overflow-hidden group"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+            <div class="flex justify-between items-start mb-6">
+              <span
+                class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant/60 uppercase"
+                >Selesai</span
+              >
+              <div
+                class="w-10 h-10 rounded-full bg-secondary/5 flex items-center justify-center text-secondary"
+              >
+                <span
+                  class="material-symbols-outlined text-xl"
+                  data-icon="task_alt"
+                  >task_alt</span
+                >
+              </div>
+            </div>
+            <div class="space-y-1">
+              <div
+                class="text-5xl font-extrabold tracking-tighter text-on-surface"
+              >
+                86
+              </div>
+              <div
+                class="flex items-center gap-1 text-xs font-semibold text-secondary"
+              >
+                <span
+                  class="material-symbols-outlined text-xs"
+                  data-icon="trending_up"
+                  >trending_up</span
+                >
+                <span>69% Completion Rate</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-lowest p-8 rounded-lg tonal-shift relative overflow-hidden group"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-surface-tint"></div>
+            <div class="flex justify-between items-start mb-6">
+              <span
+                class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant/60 uppercase"
+                >Dalam Proses</span
+              >
+              <div
+                class="w-10 h-10 rounded-full bg-surface-tint/5 flex items-center justify-center text-surface-tint"
+              >
+                <span
+                  class="material-symbols-outlined text-xl"
+                  data-icon="pending"
+                  >pending</span
+                >
+              </div>
+            </div>
+            <div class="space-y-1">
+              <div
+                class="text-5xl font-extrabold tracking-tighter text-on-surface"
+              >
+                28
+              </div>
+              <div
+                class="flex items-center gap-1 text-xs font-semibold text-on-surface-variant"
+              >
+                <span
+                  class="material-symbols-outlined text-xs"
+                  data-icon="schedule"
+                  >schedule</span
+                >
+                <span>8 Mendekati Deadline</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-surface-container-lowest p-8 rounded-lg tonal-shift relative overflow-hidden group"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+            <div class="flex justify-between items-start mb-6">
+              <span
+                class="text-[10px] font-bold tracking-[0.1em] text-on-surface-variant/60 uppercase"
+                >Pending</span
+              >
+              <div
+                class="w-10 h-10 rounded-full bg-error/5 flex items-center justify-center text-error"
+              >
+                <span
+                  class="material-symbols-outlined text-xl"
+                  data-icon="priority_high"
+                  >priority_high</span
+                >
+              </div>
+            </div>
+            <div class="space-y-1">
+              <div
+                class="text-5xl font-extrabold tracking-tighter text-on-surface"
+              >
+                10
+              </div>
+              <div
+                class="flex items-center gap-1 text-xs font-semibold text-error"
+              >
+                <span
+                  class="material-symbols-outlined text-xs"
+                  data-icon="error_outline"
+                  >error_outline</span
+                >
+                <span>Membutuhkan Atensi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div
+            class="lg:col-span-2 bg-surface-container-lowest rounded-lg p-10 flex flex-col justify-between min-h-[400px] relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"
+            ></div>
+            <div class="relative z-10">
+              <div class="flex items-center gap-4 mb-8">
+                <div class="h-10 w-1 bg-primary rounded-full"></div>
+                <h4 class="text-2xl font-bold tracking-tight text-on-surface">
+                  Progress Mingguan Proyek
+                </h4>
+              </div>
+              <p class="text-on-surface-variant mb-12 max-w-md">
+                Efisiensi tim meningkat sebesar 18% dibandingkan minggu lalu.
+                Fokus utama saat ini adalah optimasi modul "Executive Horizon".
+              </p>
+              <div class="flex items-end gap-4 h-48 w-full">
+                <div
+                  class="flex-1 bg-surface-container-low rounded-t-lg group hover:bg-primary/20 transition-colors relative"
+                >
+                  <div
+                    class="absolute bottom-0 left-0 w-full bg-primary/40 h-[40%] rounded-t-lg"
+                  ></div>
+                  <span
+                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant"
+                    >SEN</span
+                  >
+                </div>
+                <div
+                  class="flex-1 bg-surface-container-low rounded-t-lg group hover:bg-primary/20 transition-colors relative"
+                >
+                  <div
+                    class="absolute bottom-0 left-0 w-full bg-primary h-[75%] rounded-t-lg"
+                  ></div>
+                  <span
+                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant"
+                    >SEL</span
+                  >
+                </div>
+                <div
+                  class="flex-1 bg-surface-container-low rounded-t-lg group hover:bg-primary/20 transition-colors relative"
+                >
+                  <div
+                    class="absolute bottom-0 left-0 w-full bg-primary/60 h-[55%] rounded-t-lg"
+                  ></div>
+                  <span
+                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant"
+                    >RAB</span
+                  >
+                </div>
+                <div
+                  class="flex-1 bg-surface-container-low rounded-t-lg group hover:bg-primary/20 transition-colors relative"
+                >
+                  <div
+                    class="absolute bottom-0 left-0 w-full bg-primary h-[90%] rounded-t-lg"
+                  ></div>
+                  <span
+                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant"
+                    >KAM</span
+                  >
+                </div>
+                <div
+                  class="flex-1 bg-surface-container-low rounded-t-lg group hover:bg-primary/20 transition-colors relative"
+                >
+                  <div
+                    class="absolute bottom-0 left-0 w-full bg-primary/80 h-[65%] rounded-t-lg"
+                  ></div>
+                  <span
+                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant"
+                    >JUM</span
+                  >
+                </div>
+                <div
+                  class="flex-1 bg-surface-container-low rounded-t-lg group hover:bg-primary/20 transition-colors relative"
+                >
+                  <div
+                    class="absolute bottom-0 left-0 w-full bg-primary/20 h-[20%] rounded-t-lg"
+                  ></div>
+                  <span
+                    class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant"
+                    >SAB</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-surface-container rounded-lg p-8 space-y-8">
+            <div class="flex items-center justify-between">
+              <h4
+                class="text-sm font-bold tracking-widest text-on-surface-variant uppercase"
+              >
+                Update Terbaru
+              </h4>
+              <span
+                class="material-symbols-outlined text-on-surface-variant"
+                data-icon="more_horiz"
+                >more_horiz</span
+              >
+            </div>
+            <div class="space-y-6">
+              <div class="flex gap-4">
+                <div class="relative">
+                  <div class="w-10 h-10 rounded-full overflow-hidden bg-white">
+                    <img
+                      class="w-full h-full object-cover"
+                      data-alt="Portrait of a female developer focused on work with bright professional lighting"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAc2MqM2MRig5S-Bv-n58JDyX4NamVBVzbNiIyBylpc79kj-ljfr6WLapz55Ya1TsRe9rsPzYnxx3b6MlFIfbumm8C1kH8qojTETquUkCrLMMk6tZKcjnyN5u1FASXzU-WAlFyhBqthxW1OyX6pA9pjue_WqYqSZI0JvNMPIq4VlbKOVk4Dm-4VDMbO2SzabAhmKkFRT_3riJLUrukBxc9AIWor7htVcAzGSLVWVVTyQ64_uAHfhowUb9U4Mscpl33zPLTjkw58b23y"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-secondary border-2 border-surface-container flex items-center justify-center"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[8px] text-white"
+                      data-icon="check"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >check</span
+                    >
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-xs font-semibold text-on-surface">
+                    Maya mencentang "Selesai"
+                  </p>
+                  <p class="text-[11px] text-on-surface-variant mb-1">
+                    Update UI Dashboard V2
+                  </p>
+                  <span
+                    class="text-[9px] text-on-surface-variant/60 font-medium"
+                    >10 menit yang lalu</span
+                  >
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="relative">
+                  <div class="w-10 h-10 rounded-full overflow-hidden bg-white">
+                    <img
+                      class="w-full h-full object-cover"
+                      data-alt="Portrait of a male designer looking at a digital tablet in a modern office"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiy8RXSzMa1c6U27PwYIza8KOUFBXT9gWBjR3svBhefjh9oXGegoubfBO-e3_1r-M4zghT2MJFt2VGGVM9y2WyfgtUXo0QktkVB5UyTk4ZhBNvZS5oZB3YC4BcmrGnvEDF_ul0Kvesi2AHca2M8Thy4BQuNR97V9SwMx45-MmvM1GFGxmUVvKUv8Iz6ocjH2cqaDqaFGUZT_qz9IFw_lswI-nqtNP_pbnBTQGdAwFFHPhAQMeSY0U6qu2Yl8hGWzjb3WWGenmMtYaB"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary border-2 border-surface-container flex items-center justify-center"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[8px] text-white"
+                      data-icon="add"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >add</span
+                    >
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-xs font-semibold text-on-surface">
+                    Budi menambahkan tugas baru
+                  </p>
+                  <p class="text-[11px] text-on-surface-variant mb-1">
+                    Integrasi API Gateway
+                  </p>
+                  <span
+                    class="text-[9px] text-on-surface-variant/60 font-medium"
+                    >1 jam yang lalu</span
+                  >
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="relative">
+                  <div class="w-10 h-10 rounded-full overflow-hidden bg-white">
+                    <img
+                      class="w-full h-full object-cover"
+                      data-alt="Portrait of a young creative professional woman in a bright airy workspace"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9fueD9UwkftIAfddWtkS1ZUpyAoHewoCl_LuKEoSPww4Eu-uRtY-MyX65AmXhtXyXPNXfcmb_3KlZIRpkKKs-IHt0b6VW__wBVIQeJ-U91mX1zTDnvhaR3eSEjV6AAv6K1ceDZYqI5kEYsV9nv46HY_g-GGUXY12K5TVlkdwu-ampLoRTlGuM-_W1WrCW2KyWMiCgSt8SI-wiH4R9MOdJtrb8VQv3Dx1mmxUENYf2H9OuPFAUpqZFN0kgJQk4g_aqA2vVsOggCKEq"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-error border-2 border-surface-container flex items-center justify-center"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[8px] text-white"
+                      data-icon="priority_high"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >priority_high</span
+                    >
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-xs font-semibold text-on-surface">
+                    Siska mengubah prioritas
+                  </p>
+                  <p class="text-[11px] text-on-surface-variant mb-1">
+                    Fix Bug Deployment Prod
+                  </p>
+                  <span
+                    class="text-[9px] text-on-surface-variant/60 font-medium"
+                    >3 jam yang lalu</span
+                  >
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full py-3 text-xs font-bold text-primary hover:bg-surface-container-highest transition-colors rounded"
+            >
+              Lihat Semua Aktifitas
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <a
+      href="tambah_tugas.html"
+      class="fixed bottom-10 right-10 w-14 h-14 bg-gradient-primary text-white rounded-full flex items-center justify-center shadow-xl shadow-primary/30 z-50 hover:scale-110 transition-transform"
+    >
+      <span class="material-symbols-outlined text-2xl" data-icon="add"
+        >add</span
+      >
+    </a>
+  </body>
 </html>

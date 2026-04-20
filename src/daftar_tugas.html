@@ -1,255 +1,291 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daftar Tugas — Angkasa Labs</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<div class="shell">
-
-  <aside class="sidebar">
-    <a href="./index.html" class="sidebar-logo">
-      <div class="logo-icon">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fill-opacity=".15" stroke="white" stroke-width="1.25"/><path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.25" stroke-linecap="round"/></svg>
-      </div>
-      <div><span class="logo-name">Angkasa Labs</span><span class="logo-tag">Task Manager</span></div>
-    </a>
-    <nav class="sidebar-nav">
-      <span class="nav-label">Menu</span>
-      <a href="./index.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Beranda
-      </a>
-      <a href="./tambah_tugas.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        Tambah Tugas
-      </a>
-      <a href="./daftar_tugas.html" class="nav-item active">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        Daftar Tugas
-      </a>
-      <a href="./proses.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Board Proses
-      </a>
-    </nav>
-    <div class="sidebar-footer">Prototype &middot; localStorage<br>HTML + CSS + JS</div>
-  </aside>
-
-  <div class="main">
-    <div class="topbar">
-      <div class="topbar-crumb">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg>
-        <b>Daftar Tugas</b>
-      </div>
-      <a href="./tambah_tugas.html" class="btn btn-primary" style="font-size:.75rem;padding:5px 14px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Tambah Tugas
-      </a>
-    </div>
-
-    <div class="content">
-      <div class="ph">
-        <div class="ph-sub">Modul Output</div>
-        <h1 class="ph-title">Daftar <em>Tugas Klien</em></h1>
-        <p class="ph-desc">Semua tugas tercatat. Klik dropdown status untuk mengubahnya langsung.</p>
-      </div>
-
-      <div class="panel">
-        <!-- Toolbar -->
-        <div class="tbar">
-          <input class="tsearch" type="text" id="searchInput" placeholder="Cari klien, deskripsi, atau PIC...">
-          <select class="tsel" id="statusFilter">
-            <option value="">Semua Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Dalam Proses">Dalam Proses</option>
-            <option value="Selesai">Selesai</option>
-          </select>
-          <select class="tsel" id="priorityFilter">
-            <option value="">Semua Prioritas</option>
-            <option value="Tinggi">Tinggi</option>
-            <option value="Sedang">Sedang</option>
-            <option value="Rendah">Rendah</option>
-          </select>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Daftar Tugas | Angkasa Labs</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-on-surface": "#f0f0f3",
+              "surface-container": "#eeeef0",
+              "tertiary-container": "#a53300",
+              background: "#f9f9fc",
+              "on-secondary-fixed": "#002020",
+              "secondary-fixed": "#93f2f2",
+              "primary-fixed": "#dde1ff",
+              "tertiary-fixed": "#ffdbd0",
+              secondary: "#006a6a",
+              "surface-bright": "#f9f9fc",
+              "surface-container-high": "#e8e8ea",
+              "secondary-fixed-dim": "#76d6d5",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-secondary-container": "#006e6e",
+              "on-background": "#1a1c1e",
+              "on-secondary-fixed-variant": "#004f4f",
+              primary: "#0034b1",
+              "on-primary-container": "#c8d1ff",
+              "primary-container": "#1b4bdb",
+              "on-tertiary-fixed": "#390c00",
+              "surface-variant": "#e2e2e5",
+              "on-tertiary-fixed-variant": "#832700",
+              "secondary-container": "#90efef",
+              "surface-dim": "#dadadc",
+              "surface-container-low": "#f3f3f6",
+              "surface-container-highest": "#e2e2e5",
+              "surface-tint": "#214fdf",
+              tertiary: "#7d2500",
+              error: "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffc6b4",
+              "primary-fixed-dim": "#b8c4ff",
+              "error-container": "#ffdad6",
+              "inverse-surface": "#2f3133",
+              "on-primary-fixed": "#001453",
+              "on-primary": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#c4c5d7",
+              outline: "#747686",
+              surface: "#f9f9fc",
+              "on-primary-fixed-variant": "#0037b9",
+              "on-surface": "#1a1c1e",
+              "inverse-primary": "#b8c4ff",
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.25rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Inter", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9f9fc;
+        color: #1a1c1e;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <aside
+      class="fixed left-0 top-0 h-screen w-64 bg-[#eeeef0] dark:bg-slate-900 font-['Inter'] antialiased text-sm tracking-tight overflow-y-auto z-50"
+    >
+      <div class="p-8">
+        <div class="flex items-center gap-3 mb-12">
+          <div
+            class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary"
+          >
+            <span class="material-symbols-outlined" data-icon="rocket_launch"
+              >rocket_launch</span
+            >
+          </div>
+          <div>
+            <h1
+              class="text-xl font-bold tracking-tighter text-[#1a1c1e] dark:text-slate-100"
+            >
+              Angkasa Labs
+            </h1>
+            <p
+              class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60"
+            >
+              Executive Horizon
+            </p>
+          </div>
         </div>
+        <nav class="space-y-1">
+          <a
+            class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors rounded-lg"
+            href="index.html"
+          >
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            Beranda
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-3 bg-[#e0e0e2] dark:bg-slate-800 text-[#0034b1] dark:text-blue-400 border-l-4 border-[#0034b1] font-semibold"
+            href="daftar_tugas.html"
+          >
+            <span class="material-symbols-outlined" data-icon="list_alt"
+              >list_alt</span
+            >
+            Daftar Tugas
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors rounded-lg"
+            href="proses.html"
+          >
+            <span
+              class="material-symbols-outlined"
+              data-icon="dashboard_customize"
+              >dashboard_customize</span
+            >
+            Board Proses
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors rounded-lg"
+            href="tambah_tugas.html"
+          >
+            <span class="material-symbols-outlined" data-icon="add_circle"
+              >add_circle</span
+            >
+            Tambah Tugas
+          </a>
+        </nav>
+        <div class="mt-12 mb-6">
+          <a
+            href="tambah_tugas.html"
+            class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+          >
+            <span class="material-symbols-outlined text-sm" data-icon="add"
+              >add</span
+            >
+            New Project
+          </a>
+        </div>
+      </div>
+    </aside>
+    <header
+      class="w-full h-16 sticky top-0 z-40 bg-[#f9f9fc]/80 dark:bg-slate-950/80 backdrop-blur-md flex justify-between items-center px-8 ml-64 w-[calc(100%-16rem)]"
+    >
+      <div class="p-4 border-t border-outline-variant/10 space-y-1 mb-4">
+        <a href="settings.html" class="...">
+          <span class="material-symbols-outlined ...">settings</span>
+          <span>Settings</span>
+        </a>
+        <a href="login.html" class="...">
+          <span class="material-symbols-outlined ...">logout</span>
+          <span>Logout</span>
+        </a>
+      </div>
 
-        <!-- Table -->
-        <div class="tscroll">
-          <table>
+      <div class="flex items-center gap-6">
+        <div class="relative group">
+          <span
+            class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-lg"
+            >search</span
+          >
+          <input
+            class="bg-surface-container-low border-none rounded-DEFAULT pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-surface-tint/20 outline-none transition-all"
+            placeholder="Cari Nama Klien..."
+            type="text"
+          />
+        </div>
+      </div>
+    </header>
+    <main class="ml-64 p-8 min-h-[calc(100vh-4rem)]">
+      <section
+        class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4"
+      >
+        <div class="space-y-1">
+          <h3 class="text-2xl font-bold tracking-tight text-on-surface">
+            Tinjauan Operasional
+          </h3>
+          <p class="text-on-surface-variant text-sm">
+            Kelola dan pantau seluruh tugas aktif dalam ekosistem Angkasa Labs.
+          </p>
+        </div>
+      </section>
+      <div
+        class="bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_-4px_rgba(26,28,30,0.04)] overflow-hidden"
+      >
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
             <thead>
-              <tr>
-                <th class="tc-no">No</th>
-                <th>Klien</th>
-                <th>Deskripsi</th>
-                <th>PIC</th>
-                <th>Prioritas</th>
-                <th>Status</th>
-                <th>Tanggal</th>
-                <th></th>
+              <tr class="bg-surface-container-low/50">
+                <th
+                  class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-70"
+                >
+                  ID
+                </th>
+                <th
+                  class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-70"
+                >
+                  Klien
+                </th>
+                <th
+                  class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-70"
+                >
+                  PIC
+                </th>
+                <th
+                  class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-70"
+                >
+                  Deskripsi
+                </th>
+                <th
+                  class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-70"
+                >
+                  Prioritas
+                </th>
+                <th
+                  class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-70"
+                >
+                  Status
+                </th>
               </tr>
             </thead>
-            <tbody id="taskTableBody"></tbody>
+            <tbody class="divide-y divide-surface-container/50">
+              <tr
+                class="hover:bg-surface-container-low/30 transition-colors group"
+              >
+                <td class="px-6 py-5 font-mono text-xs text-on-surface-variant">
+                  #AL-9921
+                </td>
+                <td class="px-6 py-5">
+                  <span class="font-semibold text-on-surface"
+                    >Bimasakti Tech</span
+                  >
+                </td>
+                <td class="px-6 py-5 text-sm">Adrian Wirawan</td>
+                <td
+                  class="px-6 py-5 text-sm text-on-surface-variant max-w-xs truncate"
+                >
+                  Integrasi API Cloud untuk sistem logistik nasional tahap satu.
+                </td>
+                <td class="px-6 py-5">
+                  <span
+                    class="px-3 py-1 rounded-full text-[10px] font-bold bg-error-container text-on-error-container uppercase"
+                    >High</span
+                  >
+                </td>
+                <td class="px-6 py-5">
+                  <span class="text-sm font-medium">In Progress</span>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
-
-        <!-- Empty state -->
-        <div class="tempty" id="emptyState" style="display:none;">
-          <svg class="tempty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-          <p id="emptyMessage">Belum ada tugas.</p>
-        </div>
       </div>
-
-      <!-- Legend -->
-      <div style="display:flex;gap:.625rem;align-items:center;margin-top:1rem;flex-wrap:wrap;">
-        <span style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);">Status</span>
-        <span class="spill done" style="pointer-events:none;">Selesai</span>
-        <span class="spill wip"  style="pointer-events:none;">Dalam Proses</span>
-        <span class="spill wait" style="pointer-events:none;">Pending</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-  // Key localStorage yang sama di semua halaman
-  const STORAGE_KEY = 'al_tasks';
-
-  // Ambil semua tugas dari localStorage
-  function getAllTasks() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
-      return [];
-    }
-  }
-
-  // Simpan daftar tugas ke localStorage
-  function saveTasks(tasks) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }
-
-  // Seed data awal kalau masih kosong
-  if (getAllTasks().length === 0) {
-    const demoData = [
-      { id: 's1', klien: 'UMKM Kopi Senja',    desc: 'Desain Feed Instagram 3 Post',     pic: 'Zelda', prio: 'Sedang', status: 'Selesai',     date: '2026-02-10' },
-      { id: 's2', klien: 'Toko Sepatu Almira', desc: 'Video TikTok POV 60 Detik',        pic: 'Julianti',  prio: 'Tinggi', status: 'Pending',      date: '2026-02-18' },
-      { id: 's3', klien: 'Bakery Oma Rini',    desc: 'Copywriting Caption IG (10 post)', pic: 'Ikbal',  prio: 'Sedang', status: 'Dalam Proses', date: '2026-02-25' }
-    ];
-    saveTasks(demoData);
-  }
-
-  // Escape HTML untuk keamanan
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  // Tampilkan toast
-  function showToast(message) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.classList.add('on');
-    setTimeout(() => toast.classList.remove('on'), 2400);
-  }
-
-  // Render tabel berdasarkan filter
-  function renderTable() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
-    const statusFilter = document.getElementById('statusFilter').value;
-    const priorityFilter = document.getElementById('priorityFilter').value;
-
-    let filteredTasks = getAllTasks().filter(task => {
-      const matchesSearch = [task.klien, task.desc, task.pic]
-        .join(' ')
-        .toLowerCase()
-        .includes(searchInput);
-      const matchesStatus = !statusFilter || task.status === statusFilter;
-      const matchesPriority = !priorityFilter || task.prio === priorityFilter;
-      return matchesSearch && matchesStatus && matchesPriority;
-    });
-
-    const tbody = document.getElementById('taskTableBody');
-    const emptyState = document.getElementById('emptyState');
-    const emptyMessage = document.getElementById('emptyMessage');
-
-    if (filteredTasks.length === 0) {
-      tbody.innerHTML = '';
-      emptyState.style.display = 'block';
-      emptyMessage.textContent = (searchInput || statusFilter || priorityFilter)
-        ? 'Tidak ada tugas yang cocok dengan filter.'
-        : 'Belum ada tugas. Klik Tambah Tugas untuk memulai.';
-      return;
-    }
-
-    emptyState.style.display = 'none';
-    tbody.innerHTML = filteredTasks.map((task, index) => {
-      const statusClass = task.status === 'Selesai' ? 'done'
-        : task.status === 'Dalam Proses' ? 'wip'
-        : 'wait';
-      const priorityClass = task.prio === 'Tinggi' ? 'high'
-        : task.prio === 'Sedang' ? 'med'
-        : 'low';
-
-      return `<tr>
-        <td class="tc-no">${String(index + 1).padStart(2, '0')}</td>
-        <td class="tc-name">${escapeHtml(task.klien)}</td>
-        <td class="tc-desc">${escapeHtml(task.desc)}</td>
-        <td class="tc-pic">${escapeHtml(task.pic)}</td>
-        <td class="tc-prio"><span class="ppill ${priorityClass}">${escapeHtml(task.prio)}</span></td>
-        <td class="tc-st">
-          <select class="spill ${statusClass}" data-task-id="${escapeHtml(task.id)}">
-            <option ${task.status === 'Pending' ? 'selected' : ''}>Pending</option>
-            <option ${task.status === 'Dalam Proses' ? 'selected' : ''}>Dalam Proses</option>
-            <option ${task.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
-          </select>
-        </td>
-        <td class="tc-date">${task.date || '—'}</td>
-        <td class="tc-act"><button class="btn btn-danger" data-task-id="${escapeHtml(task.id)}">Hapus</button></td>
-      </tr>`;
-    }).join('');
-
-    // Pasang event listener untuk dropdown status dan tombol hapus
-    document.querySelectorAll('select[data-task-id]').forEach(select => {
-      select.addEventListener('change', function(e) {
-        const taskId = this.dataset.taskId;
-        const newStatus = this.value;
-        const tasks = getAllTasks();
-        const taskIndex = tasks.findIndex(t => t.id === taskId);
-        if (taskIndex === -1) return;
-        tasks[taskIndex].status = newStatus;
-        saveTasks(tasks);
-        // Update class visual
-        this.className = `spill ${newStatus === 'Selesai' ? 'done' : newStatus === 'Dalam Proses' ? 'wip' : 'wait'}`;
-        showToast('Status diperbarui');
-      });
-    });
-
-    document.querySelectorAll('button[data-task-id]').forEach(button => {
-      button.addEventListener('click', function(e) {
-        const taskId = this.dataset.taskId;
-        if (!confirm('Hapus tugas ini?')) return;
-        const tasks = getAllTasks().filter(t => t.id !== taskId);
-        saveTasks(tasks);
-        renderTable();
-        showToast('Tugas dihapus');
-      });
-    });
-  }
-
-  // Pasang event listener pada filter
-  document.getElementById('searchInput').addEventListener('input', renderTable);
-  document.getElementById('statusFilter').addEventListener('change', renderTable);
-  document.getElementById('priorityFilter').addEventListener('change', renderTable);
-
-  // Inisialisasi
-  renderTable();
-</script>
-</body>
+    </main>
+  </body>
 </html>

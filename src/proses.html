@@ -1,178 +1,233 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Board Proses — Angkasa Labs</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<div class="shell">
-
-  <aside class="sidebar">
-    <a href="./index.html" class="sidebar-logo">
-      <div class="logo-icon">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="white" fill-opacity=".15" stroke="white" stroke-width="1.25"/><path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.25" stroke-linecap="round"/></svg>
-      </div>
-      <div><span class="logo-name">Angkasa Labs</span><span class="logo-tag">Task Manager</span></div>
-    </a>
-    <nav class="sidebar-nav">
-      <span class="nav-label">Menu</span>
-      <a href="./index.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Beranda
-      </a>
-      <a href="./tambah_tugas.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        Tambah Tugas
-      </a>
-      <a href="./daftar_tugas.html" class="nav-item">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        Daftar Tugas
-      </a>
-      <a href="./proses.html" class="nav-item active">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Board Proses
-      </a>
-    </nav>
-    <div class="sidebar-footer">Prototype &middot; localStorage<br>HTML + CSS + JS</div>
-  </aside>
-
-  <div class="main">
-    <div class="topbar">
-      <div class="topbar-crumb">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        <b>Board Proses</b>
-      </div>
-      <a href="./tambah_tugas.html" class="btn btn-ghost" style="font-size:.75rem;padding:5px 12px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Tugas Baru
-      </a>
-    </div>
-
-    <div class="content">
-      <div class="ph">
-        <div class="ph-sub">Monitor Progres</div>
-        <h1 class="ph-title">Board <em>tugas aktif</em></h1>
-        <p class="ph-desc">Geser tugas antar kolom dengan tombol panah di tiap kartu.</p>
-      </div>
-      <div class="board" id="board"></div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-  // Key localStorage yang sama dengan halaman lain
-  const STORAGE_KEY = 'al_tasks';
-
-  function getAllTasks() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch {
-      return [];
-    }
-  }
-
-  function saveTasks(tasks) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }
-
-  // Urutan status dan mapping navigasi antar kolom
-  const statusColumns = [
-    { status: 'Pending', label: 'Pending', icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
-    { status: 'Dalam Proses', label: 'Dalam Proses', icon: '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>' },
-    { status: 'Selesai', label: 'Selesai', icon: '<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
-  ];
-
-  const nextStatus = {
-    'Pending': 'Dalam Proses',
-    'Dalam Proses': 'Selesai',
-    'Selesai': null
-  };
-
-  const prevStatus = {
-    'Pending': null,
-    'Dalam Proses': 'Pending',
-    'Selesai': 'Dalam Proses'
-  };
-
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  function showToast(message) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.classList.add('on');
-    setTimeout(() => toast.classList.remove('on'), 2400);
-  }
-
-  function renderBoard() {
-    const tasks = getAllTasks();
-    const boardEl = document.getElementById('board');
-
-    boardEl.innerHTML = statusColumns.map(col => {
-      const tasksInColumn = tasks.filter(t => t.status === col.status);
-      const next = nextStatus[col.status];
-      const prev = prevStatus[col.status];
-
-      const cardsHtml = tasksInColumn.length === 0
-        ? `<div class="bcol-empty">Tidak ada tugas di kolom ini</div>`
-        : tasksInColumn.map(task => {
-            const priorityDotClass = task.prio === 'Tinggi' ? 'h'
-              : task.prio === 'Sedang' ? 'm'
-              : 'l';
-
-            return `<div class="bcard">
-              <div class="bcard-client">${escapeHtml(task.klien)}</div>
-              <div class="bcard-desc">${escapeHtml(task.desc)}</div>
-              <div class="bcard-foot">
-                <div class="bcard-pic">
-                  <span class="pdot ${priorityDotClass}"></span>${escapeHtml(task.pic)}
-                </div>
-                <div style="display:flex;gap:4px;">
-                  ${prev ? `<button class="bmove" data-task-id="${escapeHtml(task.id)}" data-move-to="${escapeHtml(prev)}">&#8592;</button>` : ''}
-                  ${next ? `<button class="bmove" data-task-id="${escapeHtml(task.id)}" data-move-to="${escapeHtml(next)}">&#8594;</button>` : ''}
-                </div>
-              </div>
-            </div>`;
-          }).join('');
-
-      return `<div class="bcol">
-        <div class="bcol-head">
-          <div class="bcol-title">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${col.icon}</svg>
-            ${col.label}
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Angkasa Labs - Board Proses</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-on-surface": "#f0f0f3",
+              "surface-container": "#eeeef0",
+              "tertiary-container": "#a53300",
+              background: "#f9f9fc",
+              "on-secondary-fixed": "#002020",
+              "secondary-fixed": "#93f2f2",
+              "primary-fixed": "#dde1ff",
+              "tertiary-fixed": "#ffdbd0",
+              secondary: "#006a6a",
+              "surface-bright": "#f9f9fc",
+              "surface-container-high": "#e8e8ea",
+              "secondary-fixed-dim": "#76d6d5",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-secondary-container": "#006e6e",
+              "on-background": "#1a1c1e",
+              "on-secondary-fixed-variant": "#004f4f",
+              primary: "#0034b1",
+              "on-primary-container": "#c8d1ff",
+              "primary-container": "#1b4bdb",
+              "on-tertiary-fixed": "#390c00",
+              "surface-variant": "#e2e2e5",
+              "on-tertiary-fixed-variant": "#832700",
+              "secondary-container": "#90efef",
+              "surface-dim": "#dadadc",
+              "surface-container-low": "#f3f3f6",
+              "surface-container-highest": "#e2e2e5",
+              "surface-tint": "#214fdf",
+              tertiary: "#7d2500",
+              error: "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#ffc6b4",
+              "primary-fixed-dim": "#b8c4ff",
+              "error-container": "#ffdad6",
+              "inverse-surface": "#2f3133",
+              "on-primary-fixed": "#001453",
+              "on-primary": "#ffffff",
+              "on-surface-variant": "#434655",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#c4c5d7",
+              outline: "#747686",
+              surface: "#f9f9fc",
+              "on-primary-fixed-variant": "#0037b9",
+              "on-surface": "#1a1c1e",
+              "inverse-primary": "#b8c4ff",
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Inter", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface font-body antialiased">
+    <aside
+      class="fixed left-0 top-0 h-screen w-64 bg-[#eeeef0] dark:bg-slate-900 font-['Inter'] antialiased text-sm tracking-tight z-50 overflow-y-auto"
+    >
+      <div class="p-8">
+        <div class="flex items-center gap-3 mb-10">
+          <div
+            class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center"
+          >
+            <span
+              class="material-symbols-outlined text-white"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >rocket_launch</span
+            >
           </div>
-          <span class="bcol-count">${tasksInColumn.length}</span>
+          <div>
+            <h1
+              class="text-xl font-bold tracking-tighter text-[#1a1c1e] dark:text-slate-100"
+            >
+              Angkasa Labs
+            </h1>
+            <p
+              class="text-[10px] uppercase tracking-[0.1em] text-on-surface-variant font-semibold"
+            >
+              Executive Horizon
+            </p>
+          </div>
         </div>
-        <div class="bcol-body">${cardsHtml}</div>
-      </div>`;
-    }).join('');
-
-    // Pasang event listener untuk tombol panah
-    document.querySelectorAll('.bmove').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const taskId = this.dataset.taskId;
-        const newStatus = this.dataset.moveTo;
-        const tasks = getAllTasks();
-        const taskIndex = tasks.findIndex(t => t.id === taskId);
-        if (taskIndex === -1) return;
-        tasks[taskIndex].status = newStatus;
-        saveTasks(tasks);
-        renderBoard();
-        showToast(`Dipindah ke "${newStatus}"`);
-      });
-    });
-  }
-
-  renderBoard();
-</script>
-</body>
+        <nav class="space-y-1">
+          <a
+            class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors rounded-lg"
+            href="index.html"
+          >
+            <span class="material-symbols-outlined">home</span>
+            <span>Beranda</span>
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors rounded-lg"
+            href="daftar_tugas.html"
+          >
+            <span class="material-symbols-outlined">list_alt</span>
+            <span>Daftar Tugas</span>
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-3 bg-[#e0e0e2] dark:bg-slate-800 text-[#0034b1] dark:text-blue-400 border-l-4 border-[#0034b1] font-semibold"
+            href="proses.html"
+          >
+            <span
+              class="material-symbols-outlined"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >dashboard_customize</span
+            >
+            <span>Board Proses</span>
+          </a>
+          <a
+            class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-slate-400 hover:bg-[#e8e8ea] dark:hover:bg-slate-800/50 transition-colors rounded-lg"
+            href="tambah_tugas.html"
+          >
+            <span class="material-symbols-outlined">add_circle</span>
+            <span>Tambah Tugas</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+    <main class="ml-64 min-h-screen">
+      <header
+        class="w-full h-16 sticky top-0 z-40 bg-[#f9f9fc]/80 dark:bg-slate-950/80 backdrop-blur-md flex justify-between items-center px-8"
+      >
+        <div class="flex items-center gap-4">
+          <h2
+            class="font-['Inter'] text-lg font-bold tracking-tight text-on-surface"
+          >
+            Board Proses
+          </h2>
+        </div>
+      </header>
+      <div class="p-8">
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <div
+            class="flex-1 min-w-[320px] w-full bg-surface-container-low rounded-xl p-4"
+          >
+            <h3
+              class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4"
+            >
+              Pending
+            </h3>
+            <div
+              class="bg-surface-container-lowest rounded-lg p-5 shadow-sm relative overflow-hidden group"
+            >
+              <h4 class="font-bold text-on-surface mb-1">Nusantara Group</h4>
+              <p class="text-sm text-on-surface-variant mb-4">
+                Audit infrastruktur jaringan dan migrasi cloud server regional
+                Jakarta.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex-1 min-w-[320px] w-full bg-surface-container-low rounded-xl p-4"
+          >
+            <h3
+              class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4"
+            >
+              Dalam Proses
+            </h3>
+            <div
+              class="bg-surface-container-lowest rounded-lg p-5 shadow-md relative overflow-hidden group"
+            >
+              <h4 class="font-bold text-on-surface mb-1">Cakrawala Tech</h4>
+              <p class="text-sm text-on-surface-variant mb-4">
+                Pengembangan modul AI untuk otomatisasi laporan inventaris
+                gudang.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex-1 min-w-[320px] w-full bg-surface-container-low rounded-xl p-4"
+          >
+            <h3
+              class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4"
+            >
+              Selesai
+            </h3>
+            <div
+              class="bg-surface-container-lowest rounded-lg p-5 shadow-sm relative overflow-hidden group"
+            >
+              <h4 class="font-bold text-on-surface mb-1 line-through">
+                Batik Air
+              </h4>
+              <p class="text-sm text-on-surface-variant mb-4 line-through">
+                Penyelarasan sistem booking tiket dengan gateway pembayaran
+                baru.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
